@@ -1,0 +1,97 @@
+//Firebase for pdf persistence
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Previewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        #preview {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .box {
+            width: 400px;
+            height: 100px;
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+        .subbox {
+            width: 100px;
+            height: 100px;
+            background-color: #c0c0c0;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+        .subbox:hover {
+            background-color: #656565;
+        }
+
+        .box:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Just Math Database</h1>
+    
+    <input type="file" id="fileInput" accept=".pdf" onchange="previewPDF()">
+    <label for="fileInput">
+        <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#000" stroke-width="2">
+                <rect width="198" height="198" rx="39"/>
+                <path d="M94 59h"/>
+            </g>
+        </svg>
+        <p>Click to Upload PDF</p>
+    </label>
+
+    <div id="preview"></div>
+
+    <script>
+        function previewPDF() {
+            const fileInput = document.getElementById('fileInput');
+            const preview = document.getElementById('preview');
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const pdfUrl = e.target.result;
+                const iframe = `<iframe src="${pdfUrl}" width="100%" height="600px"></iframe>`;
+                preview.innerHTML = iframe;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+    <div class="box" onclick="boxClick(1)">Algebra</div>
+    <div class="box" onclick="boxClick(2)">Geometry</div>
+    <div class="box" onclick="boxClick(3)">Precalculus</div>
+    <div class="box" onclick="boxClick(4)">Calculus</div>
+
+    <script>
+        function boxClick(boxNumber) {
+            alert("Clicked Box " + boxNumber);
+            // You can replace the alert with your custom logic for handling the click event.
+        }
+    </script>
+</body>
+</html>
